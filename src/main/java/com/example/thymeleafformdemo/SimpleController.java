@@ -7,63 +7,84 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class SimpleController {
 
-		@GetMapping("/displayCss")
-		public String showForm(){
-			System.out.println("Show the Form!!");
-			return("HelloCss");
-		}
-	@GetMapping("/getproducts")
-	public String showForm2(){
-		System.out.println("Show the Form!!");
-		return("getprodBS");
-	}
-		@GetMapping("/login")
-	    public String loginForm(Model model) {
+    @GetMapping("/displayCss")
+    public String showForm() {
+        System.out.println("Show the Form!!");
+        return ("HelloCss");
+    }
 
-	        model.addAttribute("mylogin", new LoginPOJO());
-	        return "create-login";
-	    }
+    @GetMapping("/getproducts")
+    public String showForm2() {
+        System.out.println("Show the Form!!");
+        return ("getprodBS");
+    }
 
-	    @PostMapping("/save-login")
-	    public String saveLoginSubmission(Model model, LoginPOJO mylogin) {
-	    	System.out.println(">>>>>> IN saveLoginSubmission");
-	    	System.out.println(">>>>>> uname="+mylogin.getUname());
-	    	System.out.println(">>>>>> pass ="+mylogin.getPassword());
-	        // TODO: 
-	    	model.addAttribute("mylogin", mylogin);
-	        return "login-result";
-	    }
-	@ModelAttribute
-	public GenderSelection selection() {
-		return new GenderSelection(); // Initialize with default gender (optional)
-	}
+    @GetMapping("/login")
+    public String loginForm(Model model) {
 
-	@GetMapping("/radio-buttons")
-	public String radioButtons(Model model) {
-		GenderSelection selection = new GenderSelection();
-		selection.setGender("Male");
-		model.addAttribute("selection", selection);
-		return "radio-buttons";
-	}
-	@PostMapping("/radio-selection")
-	public String radioSelection(@RequestParam String gender, Model model) {
-		System.out.println("===>> Selected gender: " + gender);
-		// ... Add any additional logic or form processing here
-		model.addAttribute("selectedGender", gender);
-		return "radio-selection"; // Redirect or return view name
-	}
+        model.addAttribute("mylogin", new LoginPOJO());
+        return "create-login";
+    }
 
-	@GetMapping("/greeting")
-	public String greeting(Model model) {
-		//model.addAttribute("greetingMessage", "Hello from Spring and Thymeleaf!");
-		return "greeting";
+    @PostMapping("/save-login")
+    public String saveLoginSubmission(Model model, LoginPOJO mylogin) {
+        System.out.println(">>>>>> IN saveLoginSubmission");
+        System.out.println(">>>>>> uname=" + mylogin.getUname());
+        System.out.println(">>>>>> pass =" + mylogin.getPassword());
+        // TODO:
+        model.addAttribute("mylogin", mylogin);
+        return "login-result";
+    }
+
+    @GetMapping("/register")
+    public String registerForm(Model model) {
+
+        model.addAttribute("myregister", new LoginPOJO());
+        return "create-register";
+    }
+
+	@PostMapping("/save-register")
+	public String saveRegisterSubmission(Model model, LoginPOJO myregister) {
+		System.out.println(">>>>>> IN saveRegisterSubmission");
+		System.out.println(">>>>>> uname=" + myregister.getUname());
+		System.out.println(">>>>>> pass =" + myregister.getPassword());
+		// TODO:
+		model.addAttribute("mylogin", myregister);
+		return "login-result";
 	}
 
-	@RequestMapping(value = "/greeting/message", method = RequestMethod.GET)
-	public String getGreetingMessage(Model model) {
-		model.addAttribute("greetingMessage", "Hello from Spring and Thymeleaf!");
-		return "greetingMessage"; // Return a simple template with only the message
-	}
+    @ModelAttribute
+    public GenderSelection selection() {
+        return new GenderSelection(); // Initialize with default gender (optional)
+    }
+
+    @GetMapping("/radio-buttons")
+    public String radioButtons(Model model) {
+        GenderSelection selection = new GenderSelection();
+        selection.setGender("Male");
+        model.addAttribute("selection", selection);
+        return "radio-buttons";
+    }
+
+    @PostMapping("/radio-selection")
+    public String radioSelection(@RequestParam String gender, Model model) {
+        System.out.println("===>> Selected gender: " + gender);
+        // ... Add any additional logic or form processing here
+        model.addAttribute("selectedGender", gender);
+        return "radio-selection"; // Redirect or return view name
+    }
+
+    @GetMapping("/greeting")
+    public String greeting(Model model) {
+        //model.addAttribute("greetingMessage", "Hello from Spring and Thymeleaf!");
+        return "greeting";
+    }
+
+    @RequestMapping(value = "/greeting/message", method = RequestMethod.GET)
+    public String getGreetingMessage(Model model) {
+        model.addAttribute("greetingMessage", "Hello from Spring and Thymeleaf!");
+        return "greetingMessage"; // Return a simple template with only the message
+    }
 
 
 }
